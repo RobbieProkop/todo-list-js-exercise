@@ -1,31 +1,40 @@
 // Arrays to keep track of each task's state
-const taskTitles = [];
-const taskComplete = [];
 
-// Create a new task by adding to the arrays
-// A new task will be created as incomplete
-function newTask(title) {
-  taskTitles.push(title);
-  taskComplete.push(false);
+//create a new task object by addin a title and a description.
+function newTask(title, description) {
+  const task = {
+    title,
+    description,
+    complete: false,
+    //logging the state of the (in)completed stask
+    logTaskState: function () {
+      console.log(
+        `${this.title} has${this.complete ? " " : " not "}been completed`
+      );
+    },
+    // Mark a task as complete by setting the task's status in the `task.complete` array to `true`
+    markCompleted: function () {
+      this.complete = true;
+    },
+  };
+  return task;
 }
 
-// Mark a task as complete by setting the task's status in the `taskComplete` array to `true`
-function completeTask(taskIndex) {
-  taskComplete[taskIndex] = true;
-}
+// Driver Code
+const task1 = newTask("Meditate", "Practice Vipassana for 1 hour");
+const task2 = newTask(
+  "Clean Cat Litter",
+  "Remove anything that was left during the night"
+);
+const task3 = newTask(
+  "Take the dog out",
+  "Go run hills and do some obedience training"
+);
 
-// Print the state of a task to the console in a nice readable way
-function logTaskState(taskIndex) {
-  const title = taskTitles[taskIndex];
-  const complete = taskComplete[taskIndex];
-  console.log(`${title} has${complete ? " " : " not "}been completed`);
-}
+const tasks = [task1, task2, task3];
 
-// DRIVER CODE BELOW
+task1.logTaskState(); // meditate has not be done
+task1.markCompleted(); // complete meditation
+task1.logTaskState(); // meditation has been completed
 
-newTask("Clean Cat Litter"); // task 0
-newTask("Do Laundry"); // task 1
-
-logTaskState(0); // Clean Cat Litter has not been completed
-completeTask(0);
-logTaskState(0); // Clean Cat Litter has been completed
+console.log(tasks);
